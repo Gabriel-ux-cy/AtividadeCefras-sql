@@ -1,0 +1,45 @@
+CREATE DATABASE sge;
+USE sge;
+
+CREATE TABLE aluno (
+    id_aluno INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    data_nascimento DATE
+);
+
+CREATE TABLE curso (
+    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+    nome_curso VARCHAR(100),
+    preco DECIMAL(8,2)
+);
+
+ALTER TABLE aluno
+ADD COLUMN id_curso INT;
+
+ALTER TABLE aluno
+ADD CONSTRAINT fk_aluno_curso
+FOREIGN KEY (id_curso) REFERENCES curso(id_curso);
+
+INSERT INTO curso (nome_curso, preco) VALUES
+('Banco de Dados', 450.00),
+('Desenvolvimento Web', 600.00),
+('Lógica de Programação', 400.00);
+
+INSERT INTO aluno (nome, data_nascimento, id_curso) VALUES
+('Ana Ribeiro', '2004-05-12', 1),
+('Bruno Costa', '2003-09-20', 2),
+('Carlos Souza', '2002-11-02', 3);
+
+UPDATE curso
+SET preco = 650.00
+WHERE nome_curso = 'Desenvolvimento Web';
+
+DELETE FROM aluno
+WHERE nome = 'Carlos Souza';
+
+SELECT 
+    aluno.nome AS Nome_Aluno,
+    curso.nome_curso AS Curso
+FROM aluno
+INNER JOIN curso
+ON aluno.id_curso = curso.id_curso;
