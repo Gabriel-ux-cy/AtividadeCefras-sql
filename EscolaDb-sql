@@ -1,0 +1,105 @@
+-- 1. Criando o Banco de Dados
+CREATE DATABASE EscolaDB;
+USE EscolaDB;
+
+-- 2. Criando as Tabelas
+CREATE TABLE Alunos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50),
+    idade INT,
+    cidade VARCHAR(50)
+);
+
+CREATE TABLE Cursos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_curso VARCHAR(50),
+    carga_horaria INT
+);
+
+CREATE TABLE Matriculas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id INT,
+    curso_id INT,
+    data_matricula DATE,
+    FOREIGN KEY (aluno_id) REFERENCES Alunos(id),
+    FOREIGN KEY (curso_id) REFERENCES Cursos(id)
+);
+
+-- 3. Inserindo Dados (DADOS ALTERADOS)
+INSERT INTO Alunos (nome, idade, cidade) VALUES
+('Lucas Almeida', 21, 'Campinas'),
+('Fernanda Rocha', 24, 'Niterói'),
+('Bruno Teixeira', 18, 'Uberlândia'),
+('Patrícia Gomes', 27, 'Florianópolis');
+
+INSERT INTO Cursos (nome_curso, carga_horaria) VALUES
+('Introdução a SQL', 45),
+('Programação Básica', 55),
+('Criação de Sites', 75);
+
+INSERT INTO Matriculas (aluno_id, curso_id, data_matricula) VALUES
+(1, 1, '2024-01-20'),
+(2, 2, '2024-02-18'),
+(3, 1, '2024-03-22'),
+(4, 3, '2024-04-30');
+
+-- Buscar todos os alunos
+SELECT * FROM Alunos;
+
+-- Buscar apenas nomes e cidades
+SELECT nome, cidade FROM Alunos;
+
+-- Alunos com mais de 20 anos
+SELECT nome, idade FROM Alunos WHERE idade > 20;
+
+-- Alunos de uma cidade específica
+SELECT nome, cidade FROM Alunos WHERE cidade = 'Campinas';
+
+-- Cursos com carga horária menor que 70
+SELECT nome_curso, carga_horaria FROM Cursos WHERE carga_horaria < 70;
+
+-- Consulta relacionando tabelas
+SELECT Alunos.nome AS Nome_Aluno, Cursos.nome_curso AS Curso
+FROM Alunos, Cursos, Matriculas
+WHERE Alunos.id = Matriculas.aluno_id
+AND Cursos.id = Matriculas.curso_id;
+
+-- Alunos maiores de 20 anos e de Campinas
+SELECT nome, idade, cidade FROM Alunos
+WHERE idade > 20 AND cidade = 'Campinas';
+
+-- Cursos de 45 OU 75 horas
+SELECT nome_curso FROM Cursos
+WHERE carga_horaria = 45 OR carga_horaria = 75;
+
+-- Liste todos os alunos com suas respectivas cidades
+SELECT nome, cidade FROM Alunos;
+
+-- Cursos com carga horária maior que 50 horas
+SELECT nome_curso FROM Cursos WHERE carga_horaria > 50;
+
+-- Alunos que moram em Florianópolis
+SELECT * FROM Alunos WHERE cidade = 'Florianópolis';
+
+-- Nome e idade dos alunos com menos de 22 anos
+SELECT nome, idade FROM Alunos WHERE idade < 22;
+
+-- Nome do aluno e curso matriculado
+SELECT Alunos.nome, Cursos.nome_curso
+FROM Alunos, Cursos, Matriculas
+WHERE Alunos.id = Matriculas.aluno_id
+AND Cursos.id = Matriculas.curso_id;
+
+-- Alunos matriculados no curso "Introdução a SQL"
+SELECT Alunos.nome
+FROM Alunos, Cursos, Matriculas
+WHERE Alunos.id = Matriculas.aluno_id
+AND Cursos.id = Matriculas.curso_id
+AND Cursos.nome_curso = 'Introdução a SQL';
+
+-- Cursos com carga horária diferente de 55 horas
+SELECT * FROM Cursos WHERE carga_horaria <> 55;
+
+-- Alunos de Campinas ou Niterói
+SELECT nome, cidade FROM Alunos
+WHERE cidade = 'Campinas' OR cidade = 'Niterói';
