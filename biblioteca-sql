@@ -1,0 +1,103 @@
+-- 1. Criando o Banco de Dados Biblioteca
+CREATE DATABASE IF NOT EXISTS biblioteca;
+USE biblioteca;
+
+-- 2. Criando Tabela Livros
+CREATE TABLE livros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    autor VARCHAR(100),
+    ano_publicacao INT
+);
+
+-- 3. Inserindo Livros (DADOS ALTERADOS)
+INSERT INTO livros (titulo, autor, ano_publicacao) VALUES
+('A Hora da Estrela', 'Clarice Lispector', 1977),
+('Vidas Secas', 'Graciliano Ramos', 1938),
+('O Cortiço', 'Aluísio Azevedo', 1890),
+('Iracema', 'José de Alencar', 1865);
+
+-- 4. Consultas na Biblioteca
+SELECT * FROM livros;
+
+SELECT titulo, autor FROM livros;
+
+-- Filtrar livros de um autor específico
+SELECT * FROM livros WHERE autor = 'Clarice Lispector';
+
+-- 5. Atualizando Dados
+-- UPDATE livros SET ano_publicacao = 1939 WHERE titulo = 'Vidas Secas';
+
+-- 6. Excluindo Dados
+-- DELETE FROM livros WHERE id = 3;
+-- DELETE FROM livros;
+
+-- 7. Criando Tabela Usuários
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    idade INT
+);
+
+-- 8. Inserindo Usuários (DADOS ALTERADOS)
+INSERT INTO usuarios (nome, email, idade) VALUES
+('Lucas Andrade', 'lucas.andrade@email.com', 28),
+('Beatriz Nogueira', 'beatriz.n@email.com', 24),
+('Rafael Pires', 'rafael.pires@email.com', 31);
+
+SELECT * FROM usuarios;
+
+
+-- ==========================================================
+-- PARTE 3: EXERCÍCIOS DE FIXAÇÃO
+-- ==========================================================
+
+-- 1. Crie um banco de dados chamado escola (Aqui: EscolaFixacao)
+CREATE DATABASE IF NOT EXISTS EscolaFixacao;
+USE EscolaFixacao;
+
+-- 2. Crie uma tabela alunos
+CREATE TABLE alunos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    idade INT,
+    serie VARCHAR(50)
+);
+
+-- 3. Insira 5 alunos (DADOS ALTERADOS)
+INSERT INTO alunos (nome, idade, serie) VALUES
+('Thiago Moraes', 12, '7º Ano'),
+('Larissa Furtado', 14, '8º Ano'),
+('Eduardo Lopes', 15, '9º Ano'),
+('Camila Ribeiro', 13, '7º Ano'),
+('Renato Azevedo', 16, '2º Ano Médio');
+
+-- 4. Exiba todos os alunos cadastrados
+SELECT * FROM alunos;
+
+-- 5. Exiba apenas os nomes e idades
+SELECT nome, idade FROM alunos;
+
+-- 6. Exiba os alunos da série "7º Ano"
+SELECT * FROM alunos WHERE serie = '7º Ano';
+
+-- 7. Atualize a idade de um aluno
+UPDATE alunos SET idade = 13 WHERE nome = 'Thiago Moraes';
+
+-- 8. Exclua um aluno da tabela
+DELETE FROM alunos WHERE nome = 'Larissa Furtado';
+
+-- DESAFIO EXTRA: Tabela Professores
+CREATE TABLE professores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    materia VARCHAR(50)
+);
+
+-- Inserindo Professores (DADOS ALTERADOS)
+INSERT INTO professores (nome, materia) VALUES
+('André Silva', 'História'),
+('Patrícia Melo', 'Ciências');
+
+SELECT * FROM professores;
